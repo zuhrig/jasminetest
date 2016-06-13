@@ -1,20 +1,62 @@
+var sp = require('../page_object/search-page.js');
+var dp = require('../page_object/search-page.js');
+    
 
-describe('Preselected Flight CP search page', function() {
+    describe('Preselected Flight CP search page', function() {
 
-  it('should more than one hotel', function(done) {
-    var url = 'http://www.despegar.cl/cp/shop/search/C982/C4544/2016-08-19/2016-08-24/2/0/0/NA/2016-08-19/2016-08-24/2';
-    var hotelRepeater = 'offer in tripBoard.data.hotelOffers.data.elements';
+      beforeAll(function () {
+        this.SearchPage = new sp();
+        this.DetailPage = new dp();
+      });
 
-    browser.get(url);
+      afterAll(function () {
 
-    element.all(by.repeater(hotelRepeater)).count().then(function (items) {
-      console.log("Items found:" + items);
-      expect(items).toBeGreaterThan(1);
+      });
+      it('Should more than 19 hotel', function(done) {
+        this.SearchPage.get();
+
+        this.SearchPage.getClusters().count().then(function (items) {
+          console.log("[INFO] Checking Clusters found: " + items);
+          expect(items).toBeGreaterThan(19);
+        });
+
+        done();
+      });
+
+      it("Should have all basic elements", function (done) {
+
+        this.SearchPage.getSorting().isDisplayed().then(function (elem){
+          console.log("[INFO] Checking for Sorting  to be displayed");
+          expect(elem).toBeTruthy();
+        });
+
+        this.SearchPage.getCurrency().isDisplayed().then(function (elem){
+          console.log("[INFO] Checking  for Currency to be displayed");
+          expect(elem).toBeTruthy();
+        });
+
+        this.SearchPage.getFilters().isDisplayed().then(function (elem){
+          console.log("[INFO] Checking for Filters  to be displayed");
+          expect(elem).toBeTruthy();
+        });
+
+        done();
+      });
+
+      it("Cluster consistency", function (done) {
+         this.SearchPage.getClusters().each( function(cluster, index){
+             cluster.element(by.css('div.hotel-fare')).isDisplayed().
+             then( function (hotelfare) {
+                since("[ERROR] 'div.hotel-fare' is not displayed on cluster:" + index).
+                expect(hotelfare).toBeTruthy();
+             });
+         });
+        done();
+      });
+
+      it("It should be able to go to Detail", function (done) {
+        this.SearchPage.goToDetail();
+        browser.pause();
+        done();
+      });
     });
-
-    done();
-  });
-
-
-
-});

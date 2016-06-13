@@ -129,6 +129,7 @@ exports.config = {
     //       // you are using multiCapabilities.
     //       console.log('Executing capability', config.capabilities);
     //     });
+    require('jasmine2-custom-message');
   },
 
   // A callback function called once tests are finished.
@@ -205,7 +206,8 @@ exports.config = {
     // If true, print colors to the terminal.
     showColors: true,
     // Default time to wait in ms before a test fails.
-    defaultTimeoutInterval: 300000
+    defaultTimeoutInterval: 300000,
+    isVerbose: true
   },
 
   // See docs/plugins.md

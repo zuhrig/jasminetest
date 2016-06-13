@@ -1,0 +1,26 @@
+{
+  "name": "shop-cart-bot",
+  "version": "0.0.1",
+  "description": "Bot de carrito",
+  "author": "Ezequiel Uhrig <euhrig@despegar.com>",
+  "scripts": {
+    "all": "protractor conf.js --suite=full"
+  },
+  "repository": {
+  "type": "git",
+  "url": "https://github.com/nodejitsu/browsenpm.org"
+},
+  "bugs": {
+  "url": "https://github.com/nodejitsu/browsenpm.org/issues"
+},
+  "keywords": [
+],
+  "dependencies": {
+    "protractor": "*",
+   "jasmine2-custom-message": "*"
+  },
+  "preferGlobal": true,
+  "private": true,
+  "analyze": true,
+  "license": "MIT"
+}
